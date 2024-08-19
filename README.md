@@ -4,6 +4,7 @@
 This repository contains various neural network architectures built using PyTorch to predict slum regions from satellite images captured via Google Earth Pro. The annotation process was conducted using the Make Sense.AI tool, with the annotated data saved in COCO JSON format. The training masks were generated from the annotation files using the `COCO` class from the `pycocotools.coco` module.
 
 ### Dataset
+Satellite images of slums listed in [Listofslumcluster2015](https://sra.gov.in/upload/Listofslumcluster2015.pdf)
 - **Training Dataset**: 2,270 RGB images of 1080x1920 resolution, resized to 128x128 RGB due to GPU VRAM constraints.
 - **Validation Dataset**: 568 RGB images.
 - **Test Dataset**: 710 RGB images.
