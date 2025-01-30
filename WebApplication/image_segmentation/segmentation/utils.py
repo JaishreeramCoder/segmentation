@@ -27,13 +27,11 @@ def run_inference(model, image_array):
 # Post-process the mask to resize it back to original size and convert to image
 def postprocess_mask(mask, original_size):
     mask = np.squeeze(mask)  # Remove single-dimensional entries from the shape
-    print(mask)
     if mask.ndim == 3 and mask.shape[0] == 2:
         # Compare the two channels and create a binary mask
         output_mask = np.where(mask[1] > mask[0], 255, 0).astype(np.uint8)
     else:
         raise ValueError("Unsupported mask shape: {}".format(mask.shape))
-    print(output_mask)
     mask_resized = Image.fromarray(output_mask)  # Convert to PIL image
     mask_resized = mask_resized.resize(original_size, Image.NEAREST)  # Resize to original image size
     return mask_resized
