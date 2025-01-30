@@ -12,8 +12,9 @@ import numpy as np
 import os
 
 # Load the ONNX model
-model = load_model("segmentation/models/UNet_based_model.onnx")
-
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "UNet_Based_Model.onnx")
+model = load_model(MODEL_PATH)
 @csrf_exempt
 def upload_image(request):
     if request.method == 'POST' and request.FILES['image']:

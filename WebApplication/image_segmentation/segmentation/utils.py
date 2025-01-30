@@ -6,10 +6,7 @@ from PIL import Image
 import io
 
 # Load ONNX model
-import os
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "UNet_Based_Model.onnx")
-def load_model(model_path=MODEL_PATH):
+def load_model(model_path):
     return onnxruntime.InferenceSession(model_path)
 
 # Preprocess the image (resize to 128x128 and normalize)
