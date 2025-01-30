@@ -27,7 +27,7 @@ function App() {
 
     try {
       // Send the image to the backend
-      const response = await axios.post("http://127.0.0.1:8000/api/upload/", formData, {
+      const response = await axios.post("https://segmentationbackend.onrender.com/api/upload/", formData, {
         responseType: "blob", // Important for receiving the mask as a file
       });
 
