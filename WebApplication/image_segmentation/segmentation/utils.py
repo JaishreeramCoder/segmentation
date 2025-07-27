@@ -11,11 +11,13 @@ def load_model(model_path):
 
 # Preprocess the image (resize to 128x128 and normalize)
 def preprocess_image(image: Image.Image):
-    image = image.resize((128, 128))  # Resize to 128x128
-    image_array = np.array(image).astype(np.float32) / 255.0  # Convert to numpy array and normalize
-    image_array = image_array.transpose(2, 0, 1)  # Change shape to (C, H, W)
-    image_array = np.expand_dims(image_array, axis=0)  # Add batch dimension
+    image = image.convert("RGB")          # Convert to RGB to remove any alpha channel
+    image = image.resize((128, 128))      # Resize to 128x128
+    image_array = np.array(image).astype(np.float32) / 255.0
+    image_array = image_array.transpose(2, 0, 1)
+    image_array = np.expand_dims(image_array, axis=0)
     return image_array
+
 
 # Run inference on the image and return the mask
 def run_inference(model, image_array):
