@@ -4,6 +4,7 @@ import onnxruntime
 import numpy as np
 from PIL import Image
 import io
+from skimage.exposure import match_histograms
 
 # Load ONNX model
 def load_model(model_path):
@@ -18,6 +19,18 @@ def preprocess_image(image: Image.Image):
     image_array = np.expand_dims(image_array, axis=0)
     return image_array
 
+def match_reference_histogram(image: Image.Image, reference_path: str) -> Image.Image:
+    target = np.array(image.convert("RGB"))
+    with Image.open(reference_path) as reference:
+        reference_image = np.array(reference.convert("RGB"))
+
+    matched = match_histograms(
+        target,
+        reference_image,
+        channel_axis=-1,
+    )
+    matched = np.clip(matched, 0, 255).astype(np.uint8)
+    return Image.fromarray(matched, mode="RGB")
 
 # Run inference on the image and return the mask
 def run_inference(model, image_array):
