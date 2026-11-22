@@ -1,6 +1,8 @@
 from django.core.files.storage import default_storage
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_GET
+
 from PIL import Image
 import os
 
@@ -26,7 +28,10 @@ REFERENCE_IMAGE_PATH = os.path.abspath(os.path.join(
 
 model = load_model(MODEL_PATH)
 
-
+@require_GET
+def health_check(request):
+    return JsonResponse({"status": "ok"})
+    
 @csrf_exempt
 def upload_image(request):
     if request.method == "POST" and request.FILES.get("image"):
