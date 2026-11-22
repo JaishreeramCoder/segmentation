@@ -24,7 +24,7 @@ function App() {
   };
 
   const handleSubmit = async (event) => {
-    event.preventEvent();
+    event.preventDefault();();
     if (!file) {
       alert("Please upload an image before submitting.");
       return;
